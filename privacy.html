@@ -7,111 +7,103 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #1a1a18; --cream: #f5f0e8; --parchment: #ede7d9;
-      --gold: #b8965a; --white: #fdfaf6;
-    }
-    body { font-family: 'Cormorant Garamond', serif; background: var(--white); color: var(--ink); }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --ink:#1a1a18; --cream:#f5f0e8; --parchment:#ede7d9; --gold:#b8965a; --white:#fdfaf6; }
+    body { font-family:'Cormorant Garamond',serif; background:var(--white); color:var(--ink); overflow-x:hidden; }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px; background: rgba(253,250,246,0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(184,150,90,0.18);
-    }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo img { height: 42px; }
-    .nav-links { display: flex; gap: 38px; list-style: none; }
-    .nav-links a {
-      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
-      letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink);
-      text-decoration: none; padding-bottom: 3px; position: relative; transition: color 0.3s;
-    }
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 48px; background:rgba(253,250,246,0.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(184,150,90,0.18); }
+    .nav-logo { display:flex; align-items:center; text-decoration:none; z-index:160; }
+    .nav-logo img { height:40px; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:500; letter-spacing:2.5px; text-transform:uppercase; color:var(--ink); text-decoration:none; position:relative; padding-bottom:3px; transition:color 0.3s; }
     .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:width 0.35s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
     .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-burger { display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; z-index:160; padding:4px; }
+    .nav-burger span { display:block; width:24px; height:1.5px; background:var(--ink); transition:all 0.35s; transform-origin:center; }
+    .nav-burger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); background:var(--cream); }
+    .nav-burger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); background:var(--cream); }
+    .mobile-drawer { display:none; position:fixed; inset:0; background:var(--ink); z-index:150; flex-direction:column; justify-content:center; align-items:center; opacity:0; pointer-events:none; transition:opacity 0.4s; }
+    .mobile-drawer.open { opacity:1; pointer-events:all; }
+    .mobile-drawer a { font-family:'Playfair Display',serif; font-size:30px; font-weight:700; color:var(--cream); text-decoration:none; padding:14px 0; width:260px; text-align:center; border-bottom:1px solid rgba(184,150,90,0.12); transition:color 0.3s; }
+    .mobile-drawer a:last-child { border-bottom:none; }
+    .mobile-drawer a:hover { color:var(--gold); }
+    .drawer-logo { position:absolute; top:18px; left:20px; height:34px; filter:invert(1) sepia(1) saturate(0.5) brightness(1.1); }
 
-    .page-header {
-      min-height: 46vh; background: var(--ink);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 160px 48px 72px; position: relative; overflow: hidden;
-    }
-    .page-header::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse at 70% 40%, rgba(184,150,90,0.07) 0%, transparent 60%);
-    }
+    /* PAGE HEADER */
+    .page-header { min-height:46vh; background:var(--ink); display:flex; flex-direction:column; justify-content:flex-end; padding:160px 48px 72px; position:relative; overflow:hidden; }
+    .page-header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 70% 40%,rgba(184,150,90,0.07) 0%,transparent 60%); }
     .page-header-label { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
-    .page-header-title { font-family:'Playfair Display',serif; font-size:clamp(36px,5vw,72px); font-weight:700; color:var(--cream); line-height:1.1; }
-    .page-header-meta { margin-top:20px; font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px; color:rgba(245,240,232,0.35); }
+    .page-header-title { font-family:'Playfair Display',serif; font-size:clamp(34px,5vw,72px); font-weight:700; color:var(--cream); line-height:1.1; }
+    .page-header-meta { margin-top:18px; font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px; color:rgba(245,240,232,0.35); }
 
-    .legal-layout { display: grid; grid-template-columns: 240px 1fr; gap: 80px; max-width: 1140px; margin: 0 auto; padding: 80px 48px 120px; }
+    /* LAYOUT */
+    .legal-layout { display:grid; grid-template-columns:220px 1fr; gap:72px; max-width:1100px; margin:0 auto; padding:80px 48px 120px; }
 
-    /* SIDEBAR TOC */
-    .toc { position: sticky; top: 100px; height: fit-content; }
-    .toc-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
-    .toc-links { display:flex; flex-direction:column; gap:0; border-left:1px solid rgba(184,150,90,0.2); }
-    .toc-links a {
-      font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1px;
-      color:rgba(26,26,24,0.5); text-decoration:none;
-      padding: 10px 16px; border-left: 2px solid transparent;
-      transition: all 0.25s;
-    }
+    /* TOC */
+    .toc { position:sticky; top:90px; height:fit-content; }
+    .toc-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+    .toc-links { display:flex; flex-direction:column; border-left:1px solid rgba(184,150,90,0.2); }
+    .toc-links a { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1px; color:rgba(26,26,24,0.5); text-decoration:none; padding:10px 14px; border-left:2px solid transparent; transition:all 0.25s; }
     .toc-links a:hover { color:var(--gold); border-left-color:var(--gold); background:rgba(184,150,90,0.04); }
 
     /* CONTENT */
-    .legal-content { }
-    .legal-intro {
-      background: var(--parchment); padding: 40px 48px; margin-bottom: 64px;
-      border-left: 3px solid var(--gold);
-    }
-    .legal-intro p { font-size:18px; font-weight:300; line-height:1.8; color:rgba(26,26,24,0.7); }
+    .legal-intro { background:var(--parchment); padding:36px 44px; margin-bottom:60px; border-left:3px solid var(--gold); }
+    .legal-intro p { font-size:17px; font-weight:300; line-height:1.8; color:rgba(26,26,24,0.7); }
     .legal-intro strong { color:var(--gold); font-weight:600; }
-
-    .legal-section { margin-bottom: 64px; scroll-margin-top: 100px; }
-    .legal-section-num {
-      font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
-      letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px;
-    }
-    .legal-section-title {
-      font-family:'Playfair Display',serif; font-size:26px; font-weight:700;
-      color:var(--ink); margin-bottom:20px; padding-bottom:16px;
-      border-bottom:1px solid rgba(184,150,90,0.2);
-    }
-    .legal-section p { font-size:17px; font-weight:300; line-height:1.85; color:rgba(26,26,24,0.72); margin-bottom:18px; }
-    .legal-section ul, .legal-section ol { padding-left: 0; margin: 18px 0; }
-    .legal-section li {
-      font-size:16px; font-weight:300; line-height:1.75; color:rgba(26,26,24,0.68);
-      padding: 8px 0 8px 28px; border-bottom: 1px solid rgba(184,150,90,0.1);
-      list-style: none; position: relative;
-    }
+    .legal-section { margin-bottom:60px; scroll-margin-top:90px; }
+    .legal-section-num { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .legal-section-title { font-family:'Playfair Display',serif; font-size:clamp(20px,2.5vw,26px); font-weight:700; color:var(--ink); margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid rgba(184,150,90,0.2); }
+    .legal-section p { font-size:16px; font-weight:300; line-height:1.85; color:rgba(26,26,24,0.72); margin-bottom:16px; }
+    .legal-section ul { padding-left:0; margin:16px 0; }
+    .legal-section li { font-size:15px; font-weight:300; line-height:1.75; color:rgba(26,26,24,0.68); padding:8px 0 8px 26px; border-bottom:1px solid rgba(184,150,90,0.1); list-style:none; position:relative; }
     .legal-section li::before { content:'✦'; position:absolute; left:0; color:var(--gold); font-size:10px; top:12px; }
     .legal-section strong { color:var(--ink); font-weight:600; }
     .legal-section a { color:var(--gold); text-decoration:none; }
     .legal-section a:hover { text-decoration:underline; }
-
-    .highlight-box {
-      background:rgba(184,150,90,0.07); border:1px solid rgba(184,150,90,0.2);
-      padding:28px 32px; margin:24px 0; border-radius:0;
-    }
+    .highlight-box { background:rgba(184,150,90,0.07); border:1px solid rgba(184,150,90,0.2); padding:24px 28px; margin:20px 0; }
     .highlight-box p { margin-bottom:0; }
 
-    footer { background:var(--ink); padding:48px; }
-    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; border-top:1px solid rgba(184,150,90,0.12); padding-top:28px; }
+    /* FOOTER */
+    footer { background:var(--ink); padding:40px 48px; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; border-top:1px solid rgba(184,150,90,0.12); padding-top:24px; }
     .footer-copy { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1.5px; color:rgba(245,240,232,0.3); }
-    .footer-legal { display:flex; gap:28px; }
+    .footer-legal { display:flex; gap:24px; flex-wrap:wrap; }
     .footer-legal a { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1.5px; color:rgba(245,240,232,0.3); text-decoration:none; transition:color 0.3s; }
     .footer-legal a:hover { color:var(--gold); }
 
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { gap: 18px; }
-      .page-header { padding: 140px 24px 56px; }
-      .legal-layout { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px 80px; }
-      .toc { display: none; }
-      .legal-intro { padding: 28px; }
+    /* ═══ TABLET ≤ 960px ═══ */
+    @media (max-width: 960px) {
+      nav { padding:14px 28px; }
+      .nav-links { display:none; }
+      .nav-burger { display:flex; }
+      .mobile-drawer { display:flex; }
+      .page-header { padding:140px 32px 60px; }
+      .legal-layout { grid-template-columns:1fr; gap:0; padding:60px 32px 80px; }
+      .toc { display:none; }
+      footer { padding:36px 32px; }
     }
-    @media (max-width: 600px) { .nav-links { display:none; } footer { padding:32px 24px; } }
+
+    /* ═══ MOBILE ≤ 600px ═══ */
+    @media (max-width: 600px) {
+      nav { padding:12px 20px; }
+      .page-header { padding:108px 20px 48px; min-height:auto; }
+      .legal-layout { padding:48px 20px 64px; }
+      .legal-intro { padding:24px 20px; }
+      .legal-intro p { font-size:15px; }
+      .legal-section p { font-size:15px; }
+      .legal-section li { font-size:14px; }
+      .highlight-box { padding:20px; }
+      footer { padding:32px 20px; }
+      .footer-bottom { flex-direction:column; align-items:flex-start; gap:10px; }
+      .footer-legal { gap:16px; }
+    }
+
+    @media (max-width: 380px) {
+      .mobile-drawer a { font-size:26px; padding:12px 0; }
+    }
   </style>
 </head>
 <body>
@@ -126,44 +118,43 @@
       <li><a href="privacy.html" class="active">Privacy</a></li>
       <li><a href="terms.html">Terms</a></li>
     </ul>
+    <button class="nav-burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
   </nav>
+
+  <div class="mobile-drawer" id="drawer">
+    <img src="uns_logo.png" alt="UNS Creations" class="drawer-logo" />
+    <a href="index.html">Home</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#collection">Collections</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html" class="active">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
 
   <div class="page-header">
     <div class="page-header-label">Legal &amp; Transparency</div>
     <h1 class="page-header-title">Privacy Policy</h1>
-    <div class="page-header-meta">Last Updated: January 2025 &nbsp;·&nbsp; Effective: January 1, 2025</div>
+    <div class="page-header-meta">Last Updated: January 2025 · Effective: January 1, 2025</div>
   </div>
 
   <div class="legal-layout">
-    <!-- TOC SIDEBAR -->
     <aside class="toc">
       <div class="toc-label">Contents</div>
       <div class="toc-links">
-        <a href="#s1">1. Introduction</a>
-        <a href="#s2">2. Information We Collect</a>
-        <a href="#s3">3. How We Use Your Data</a>
-        <a href="#s4">4. Data Sharing</a>
-        <a href="#s5">5. Cookies</a>
-        <a href="#s6">6. Data Security</a>
-        <a href="#s7">7. Your Rights (DPDP)</a>
-        <a href="#s8">8. Children's Privacy</a>
-        <a href="#s9">9. Third-Party Links</a>
-        <a href="#s10">10. Changes to Policy</a>
-        <a href="#s11">11. Contact Us</a>
+        <a href="#s1">1. Introduction</a><a href="#s2">2. Information We Collect</a><a href="#s3">3. How We Use Your Data</a><a href="#s4">4. Data Sharing</a><a href="#s5">5. Cookies</a><a href="#s6">6. Data Security</a><a href="#s7">7. Your Rights (DPDP)</a><a href="#s8">8. Children's Privacy</a><a href="#s9">9. Third-Party Links</a><a href="#s10">10. Changes to Policy</a><a href="#s11">11. Contact Us</a>
       </div>
     </aside>
 
-    <!-- CONTENT -->
     <div class="legal-content">
       <div class="legal-intro">
-        <p>At <strong>UNS Creations</strong>, your privacy is not an afterthought — it is a commitment. This Privacy Policy explains in clear, honest language how we collect, use, and protect your personal information when you shop with us or interact with our website and services. Please read it carefully. By using our services, you agree to the practices described here.</p>
+        <p>At <strong>UNS Creations</strong>, your privacy is not an afterthought — it is a commitment. This Privacy Policy explains in clear, honest language how we collect, use, and protect your personal information when you shop with us or interact with our website and services. By using our services, you agree to the practices described here.</p>
       </div>
 
       <div class="legal-section" id="s1">
         <div class="legal-section-num">Section 01</div>
         <h2 class="legal-section-title">Introduction</h2>
-        <p>UNS Creations ("we", "us", "our") is a women's fashion brand based in India. We operate an online store and related services. This Privacy Policy applies to all visitors, customers, and users of our website and services.</p>
-        <p>This policy is compliant with India's <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong> and other applicable data protection laws. If you are accessing our services from the European Union or other jurisdictions, additional protections may apply.</p>
+        <p>UNS Creations ("we", "us", "our") is a women's fashion brand based in India. This Privacy Policy applies to all visitors, customers, and users of our website and services.</p>
+        <p>This policy is compliant with India's <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong> and other applicable data protection laws.</p>
       </div>
 
       <div class="legal-section" id="s2">
@@ -171,11 +162,11 @@
         <h2 class="legal-section-title">Information We Collect</h2>
         <p>We collect information necessary to provide you with an excellent shopping experience. This includes:</p>
         <ul>
-          <li><strong>Identity & Contact Information:</strong> Your name, email address, phone number, and delivery address when you place an order or create an account.</li>
-          <li><strong>Payment Data:</strong> We do not store your payment card details. Payments are processed securely through certified third-party payment gateways (e.g., Razorpay, PhonePe).</li>
-          <li><strong>Order & Purchase History:</strong> Details of products you have ordered, returned, or enquired about.</li>
+          <li><strong>Identity &amp; Contact Information:</strong> Your name, email address, phone number, and delivery address when you place an order or create an account.</li>
+          <li><strong>Payment Data:</strong> We do not store your payment card details. Payments are processed securely through certified third-party payment gateways.</li>
+          <li><strong>Order &amp; Purchase History:</strong> Details of products you have ordered, returned, or enquired about.</li>
           <li><strong>Communication Records:</strong> Messages you send us via our contact form, email, or WhatsApp.</li>
-          <li><strong>Device & Technical Data:</strong> Your IP address, browser type, device type, operating system, referring URLs, and pages visited — collected automatically when you use our website.</li>
+          <li><strong>Device &amp; Technical Data:</strong> Your IP address, browser type, device type, operating system, and pages visited — collected automatically when you use our website.</li>
           <li><strong>Marketing Preferences:</strong> Your opt-in or opt-out preferences for newsletters and promotional communications.</li>
           <li><strong>User-Generated Content:</strong> Reviews, ratings, or photos you voluntarily submit.</li>
         </ul>
@@ -184,58 +175,49 @@
       <div class="legal-section" id="s3">
         <div class="legal-section-num">Section 03</div>
         <h2 class="legal-section-title">How We Use Your Data</h2>
-        <p>We use your personal information only for legitimate purposes that are necessary to operate our business and serve you well:</p>
+        <p>We use your personal information only for legitimate purposes necessary to operate our business and serve you well:</p>
         <ul>
           <li>To process and fulfil your orders and manage returns or exchanges.</li>
           <li>To communicate order confirmations, shipping updates, and delivery notifications.</li>
           <li>To respond to your enquiries and provide customer support.</li>
-          <li>To send you marketing and promotional emails — only if you have opted in to receive them.</li>
+          <li>To send marketing and promotional emails — only if you have opted in.</li>
           <li>To personalise your shopping experience and show you relevant products.</li>
           <li>To improve our website, detect fraud, and ensure security.</li>
           <li>To comply with our legal and regulatory obligations under Indian law.</li>
-          <li>To analyse aggregate, anonymised data to understand purchasing trends and improve our services.</li>
         </ul>
-        <div class="highlight-box">
-          <p>We will never sell your personal data to any third party for their own commercial use. Your information is yours, and we treat it accordingly.</p>
-        </div>
+        <div class="highlight-box"><p>We will never sell your personal data to any third party for their own commercial use. Your information is yours, and we treat it accordingly.</p></div>
       </div>
 
       <div class="legal-section" id="s4">
         <div class="legal-section-num">Section 04</div>
         <h2 class="legal-section-title">Data Sharing &amp; Disclosure</h2>
-        <p>We may share your data with trusted partners only where necessary to deliver our services. All third parties we work with are required to maintain the confidentiality and security of your data.</p>
+        <p>We may share your data with trusted partners only where necessary to deliver our services. All third parties are required to maintain confidentiality and security of your data.</p>
         <ul>
-          <li><strong>Delivery & Logistics Partners:</strong> We share your name, address, and phone number with our shipping partners (e.g., Delhivery, Blue Dart) solely to fulfil your delivery.</li>
-          <li><strong>Payment Processors:</strong> Your payment details are handled by secure, PCI-DSS compliant gateways. We do not retain full card details.</li>
-          <li><strong>Technology Providers:</strong> Service providers who operate our website, email platform, and analytics tools, operating under strict data processing agreements.</li>
-          <li><strong>Legal Authorities:</strong> We may disclose your information where required by law, court order, or to protect the safety and rights of our customers and the public.</li>
+          <li><strong>Delivery &amp; Logistics Partners:</strong> We share your name, address, and phone number with shipping partners solely to fulfil your delivery.</li>
+          <li><strong>Payment Processors:</strong> Handled by secure, PCI-DSS compliant gateways. We do not retain full card details.</li>
+          <li><strong>Technology Providers:</strong> Service providers who operate our website, email platform, and analytics tools, under strict data processing agreements.</li>
+          <li><strong>Legal Authorities:</strong> Where required by law, court order, or to protect the safety and rights of our customers.</li>
         </ul>
-        <p>We do not share your data with advertisers, data brokers, or any other third parties for marketing purposes without your explicit consent.</p>
+        <p>We do not share your data with advertisers or data brokers for marketing purposes without your explicit consent.</p>
       </div>
 
       <div class="legal-section" id="s5">
         <div class="legal-section-num">Section 05</div>
         <h2 class="legal-section-title">Cookies &amp; Tracking</h2>
-        <p>Our website uses cookies — small text files stored on your device — to enhance your experience. We use:</p>
+        <p>Our website uses cookies to enhance your experience. We use:</p>
         <ul>
-          <li><strong>Essential Cookies:</strong> Required for the website to function (e.g., your shopping cart and login session). These cannot be disabled without affecting functionality.</li>
-          <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our site so we can improve it. Data is anonymised and aggregated (e.g., Google Analytics).</li>
+          <li><strong>Essential Cookies:</strong> Required for the website to function (e.g., your shopping cart and login session).</li>
+          <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our site. Data is anonymised (e.g., Google Analytics).</li>
           <li><strong>Preference Cookies:</strong> Remember your settings such as currency, language, or region.</li>
         </ul>
-        <p>You can manage your cookie preferences through your browser settings at any time. Please note that disabling certain cookies may affect your shopping experience.</p>
+        <p>You can manage cookie preferences through your browser settings at any time.</p>
       </div>
 
       <div class="legal-section" id="s6">
         <div class="legal-section-num">Section 06</div>
         <h2 class="legal-section-title">Data Security &amp; Retention</h2>
-        <p>We implement appropriate technical and organisational security measures to protect your personal data from unauthorised access, loss, alteration, or disclosure. These include SSL encryption, secure hosting environments, and access control policies.</p>
-        <p>We retain your personal data for as long as is necessary to:</p>
-        <ul>
-          <li>Maintain your account and service history.</li>
-          <li>Comply with applicable legal and accounting obligations (typically 7 years for financial records under Indian law).</li>
-          <li>Resolve disputes and enforce our agreements.</li>
-        </ul>
-        <p>When data is no longer required, we securely delete or anonymise it.</p>
+        <p>We implement appropriate technical and organisational security measures including SSL encryption, secure hosting, and access control policies to protect your data.</p>
+        <p>We retain your personal data for as long as necessary to maintain your account, comply with legal obligations (typically 7 years for financial records under Indian law), and resolve disputes. When data is no longer required, we securely delete or anonymise it.</p>
       </div>
 
       <div class="legal-section" id="s7">
@@ -243,39 +225,38 @@
         <h2 class="legal-section-title">Your Rights Under the DPDP Act</h2>
         <p>Under India's Digital Personal Data Protection Act, 2023, you have the following rights as a Data Principal:</p>
         <ul>
-          <li><strong>Right of Access:</strong> You may request a summary of the personal data we hold about you and how it is being processed.</li>
-          <li><strong>Right to Correction:</strong> You may request correction of inaccurate or incomplete personal data.</li>
-          <li><strong>Right to Erasure:</strong> You may request deletion of your personal data where we no longer have a legitimate basis to retain it.</li>
-          <li><strong>Right to Grievance Redressal:</strong> You have the right to raise a complaint with us if you believe your data has been mishandled. We will respond within 30 days.</li>
-          <li><strong>Right to Withdraw Consent:</strong> Where processing is based on consent, you may withdraw it at any time. This will not affect the lawfulness of processing prior to withdrawal.</li>
-          <li><strong>Right to Nominate:</strong> You may nominate another individual to exercise your data rights in the event of your incapacity or death.</li>
+          <li><strong>Right of Access:</strong> Request a summary of the personal data we hold about you.</li>
+          <li><strong>Right to Correction:</strong> Request correction of inaccurate or incomplete personal data.</li>
+          <li><strong>Right to Erasure:</strong> Request deletion of your data where we no longer have a legitimate basis to retain it.</li>
+          <li><strong>Right to Grievance Redressal:</strong> Raise a complaint with us if you believe your data has been mishandled. We will respond within 30 days.</li>
+          <li><strong>Right to Withdraw Consent:</strong> Where processing is based on consent, you may withdraw it at any time.</li>
+          <li><strong>Right to Nominate:</strong> Nominate another individual to exercise your data rights in the event of your incapacity or death.</li>
         </ul>
-        <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@unscreations.com">privacy@unscreations.com</a>. We will respond within 30 calendar days.</p>
+        <p>To exercise any of these rights, contact us at <a href="mailto:privacy@unscreations.com">privacy@unscreations.com</a>. We will respond within 30 calendar days.</p>
       </div>
 
       <div class="legal-section" id="s8">
         <div class="legal-section-num">Section 08</div>
         <h2 class="legal-section-title">Children's Privacy</h2>
-        <p>Our services are intended for adults aged 18 years and above. We do not knowingly collect personal data from children under the age of 18. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately at <a href="mailto:privacy@unscreations.com">privacy@unscreations.com</a> and we will take prompt action to delete such data.</p>
+        <p>Our services are intended for adults aged 18 years and above. We do not knowingly collect personal data from children under the age of 18. If you believe your child has provided us with personal information, please contact us at <a href="mailto:privacy@unscreations.com">privacy@unscreations.com</a> and we will promptly delete such data.</p>
       </div>
 
       <div class="legal-section" id="s9">
         <div class="legal-section-num">Section 09</div>
         <h2 class="legal-section-title">Third-Party Links</h2>
-        <p>Our website may contain links to third-party websites (such as our social media profiles, payment gateways, or partner brands). Once you click on an external link, you leave our website and this Privacy Policy no longer applies. We are not responsible for the privacy practices of those third-party websites and encourage you to review their own policies before sharing any personal information.</p>
+        <p>Our website may contain links to third-party websites. Once you click an external link, this Privacy Policy no longer applies. We encourage you to review the privacy policies of any third-party sites before sharing personal information.</p>
       </div>
 
       <div class="legal-section" id="s10">
         <div class="legal-section-num">Section 10</div>
         <h2 class="legal-section-title">Changes to This Policy</h2>
-        <p>We may update this Privacy Policy from time to time to reflect changes in our practices, services, or legal obligations. When we make material changes, we will notify you by updating the "Last Updated" date at the top of this page, and — where appropriate — by sending you an email notification.</p>
-        <p>Your continued use of our services after the effective date of any changes constitutes your acceptance of the revised policy. We encourage you to review this page periodically.</p>
+        <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last Updated" date at the top of this page. Your continued use of our services after the effective date constitutes acceptance of the revised policy.</p>
       </div>
 
       <div class="legal-section" id="s11">
         <div class="legal-section-num">Section 11</div>
         <h2 class="legal-section-title">Contact &amp; Grievance Officer</h2>
-        <p>If you have any questions, concerns, or complaints about this Privacy Policy or how we handle your data, please contact our designated Grievance Officer:</p>
+        <p>If you have any questions, concerns, or complaints, please contact our designated Grievance Officer:</p>
         <div class="highlight-box">
           <p><strong>UNS Creations — Privacy &amp; Data Team</strong><br>
           Email: <a href="mailto:privacy@unscreations.com">privacy@unscreations.com</a><br>
@@ -283,23 +264,28 @@
           WhatsApp / Phone: +91 98765 43210<br>
           Response Time: Within 30 calendar days</p>
         </div>
-        <p>If you are not satisfied with our response, you may escalate your complaint to the Data Protection Board of India once operational under the DPDP Act, 2023.</p>
       </div>
-
     </div>
   </div>
 
   <footer>
     <div class="footer-bottom">
       <div class="footer-copy">© 2025 UNS Creations. All rights reserved.</div>
-      <div class="footer-legal">
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-        <a href="contact.html">Contact</a>
-      </div>
+      <div class="footer-legal"><a href="index.html">Home</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="contact.html">Contact</a></div>
     </div>
   </footer>
 
+  <script>
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    burger.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      burger.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = '';
+    }));
+  </script>
 </body>
 </html>
