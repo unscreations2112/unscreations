@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — UNS Creations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a18; --cream: #f5f0e8; --parchment: #ede7d9;
+      --gold: #b8965a; --white: #fdfaf6;
+    }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--white); color: var(--ink); }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px; background: rgba(253,250,246,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,150,90,0.18);
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 42px; }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink);
+      text-decoration: none; padding-bottom: 3px; position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:width 0.35s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+
+    .page-header {
+      min-height: 46vh; background: var(--ink);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 160px 48px 72px; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 20% 60%, rgba(196,133,122,0.07) 0%, transparent 60%);
+    }
+    .page-header-label { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .page-header-title { font-family:'Playfair Display',serif; font-size:clamp(36px,5vw,72px); font-weight:700; color:var(--cream); line-height:1.1; }
+    .page-header-meta { margin-top:20px; font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px; color:rgba(245,240,232,0.35); }
+
+    .legal-layout { display:grid; grid-template-columns:240px 1fr; gap:80px; max-width:1140px; margin:0 auto; padding:80px 48px 120px; }
+
+    .toc { position: sticky; top: 100px; height: fit-content; }
+    .toc-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+    .toc-links { display:flex; flex-direction:column; gap:0; border-left:1px solid rgba(184,150,90,0.2); }
+    .toc-links a {
+      font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1px;
+      color:rgba(26,26,24,0.5); text-decoration:none;
+      padding:10px 16px; border-left:2px solid transparent; transition:all 0.25s;
+    }
+    .toc-links a:hover { color:var(--gold); border-left-color:var(--gold); background:rgba(184,150,90,0.04); }
+
+    .legal-intro { background:var(--parchment); padding:40px 48px; margin-bottom:64px; border-left:3px solid var(--gold); }
+    .legal-intro p { font-size:18px; font-weight:300; line-height:1.8; color:rgba(26,26,24,0.7); }
+    .legal-intro strong { color:var(--gold); font-weight:600; }
+
+    .legal-section { margin-bottom:64px; scroll-margin-top:100px; }
+    .legal-section-num { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .legal-section-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--ink); margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(184,150,90,0.2); }
+    .legal-section p { font-size:17px; font-weight:300; line-height:1.85; color:rgba(26,26,24,0.72); margin-bottom:18px; }
+    .legal-section ul, .legal-section ol { padding-left:0; margin:18px 0; }
+    .legal-section li { font-size:16px; font-weight:300; line-height:1.75; color:rgba(26,26,24,0.68); padding:8px 0 8px 28px; border-bottom:1px solid rgba(184,150,90,0.1); list-style:none; position:relative; }
+    .legal-section li::before { content:'✦'; position:absolute; left:0; color:var(--gold); font-size:10px; top:12px; }
+    .legal-section strong { color:var(--ink); font-weight:600; }
+    .legal-section a { color:var(--gold); text-decoration:none; }
+    .legal-section a:hover { text-decoration:underline; }
+    .highlight-box { background:rgba(184,150,90,0.07); border:1px solid rgba(184,150,90,0.2); padding:28px 32px; margin:24px 0; }
+    .highlight-box p { margin-bottom:0; }
+    .warning-box { background:rgba(196,133,122,0.08); border:1px solid rgba(196,133,122,0.25); padding:28px 32px; margin:24px 0; }
+    .warning-box p { margin-bottom:0; }
+
+    footer { background:var(--ink); padding:48px; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; border-top:1px solid rgba(184,150,90,0.12); padding-top:28px; }
+    .footer-copy { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1.5px; color:rgba(245,240,232,0.3); }
+    .footer-legal { display:flex; gap:28px; }
+    .footer-legal a { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1.5px; color:rgba(245,240,232,0.3); text-decoration:none; transition:color 0.3s; }
+    .footer-legal a:hover { color:var(--gold); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      .page-header { padding: 140px 24px 56px; }
+      .legal-layout { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px 80px; }
+      .toc { display: none; }
+      .legal-intro { padding: 28px; }
+    }
+    @media (max-width: 600px) { .nav-links { display:none; } footer { padding:32px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="uns_logo.png" alt="UNS Creations" /></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#collection">Collections</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html" class="active">Terms</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-label">Legal &amp; Policies</div>
+    <h1 class="page-header-title">Terms of Use</h1>
+    <div class="page-header-meta">Last Updated: January 2025 &nbsp;·&nbsp; Governing Law: India</div>
+  </div>
+
+  <div class="legal-layout">
+    <aside class="toc">
+      <div class="toc-label">Contents</div>
+      <div class="toc-links">
+        <a href="#t1">1. Acceptance of Terms</a>
+        <a href="#t2">2. Eligibility</a>
+        <a href="#t3">3. Products & Pricing</a>
+        <a href="#t4">4. Orders & Payments</a>
+        <a href="#t5">5. Shipping & Delivery</a>
+        <a href="#t6">6. Returns & Refunds</a>
+        <a href="#t7">7. Intellectual Property</a>
+        <a href="#t8">8. User Conduct</a>
+        <a href="#t9">9. Disclaimers</a>
+        <a href="#t10">10. Limitation of Liability</a>
+        <a href="#t11">11. Governing Law</a>
+        <a href="#t12">12. Contact Us</a>
+      </div>
+    </aside>
+
+    <div class="legal-content">
+      <div class="legal-intro">
+        <p>These Terms of Use govern your access to and use of the <strong>UNS Creations</strong> website, applications, and services. By accessing or using our services, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, please do not use our services.</p>
+      </div>
+
+      <div class="legal-section" id="t1">
+        <div class="legal-section-num">Section 01</div>
+        <h2 class="legal-section-title">Acceptance of Terms</h2>
+        <p>By visiting our website, creating an account, or placing an order with UNS Creations, you agree to these Terms of Use along with our <a href="privacy.html">Privacy Policy</a>, which is incorporated by reference. These Terms constitute a legally binding agreement between you and UNS Creations.</p>
+        <p>We reserve the right to update or modify these Terms at any time. The revised Terms will be effective upon posting to this page, with the "Last Updated" date amended. Your continued use of our services after any such change constitutes your acceptance of the new Terms.</p>
+      </div>
+
+      <div class="legal-section" id="t2">
+        <div class="legal-section-num">Section 02</div>
+        <h2 class="legal-section-title">Eligibility</h2>
+        <p>To use our services, you must:</p>
+        <ul>
+          <li>Be at least 18 years of age, or have the consent and supervision of a parent or legal guardian.</li>
+          <li>Have the legal capacity to enter into binding contracts under applicable Indian law.</li>
+          <li>Not be prohibited from using our services under any applicable law.</li>
+          <li>Provide accurate, current, and complete information when registering or placing an order.</li>
+        </ul>
+        <p>By using our website, you represent and warrant that you meet all of the above eligibility requirements. We reserve the right to refuse service to anyone for any legitimate business reason.</p>
+      </div>
+
+      <div class="legal-section" id="t3">
+        <div class="legal-section-num">Section 03</div>
+        <h2 class="legal-section-title">Products &amp; Pricing</h2>
+        <p>UNS Creations strives to display our products as accurately as possible. However, please note:</p>
+        <ul>
+          <li>Product images, colours, and dimensions shown on the website are for illustrative purposes. Actual colours may vary slightly due to individual screen settings and lighting.</li>
+          <li>All prices are listed in Indian Rupees (INR) and include applicable taxes unless stated otherwise.</li>
+          <li>We reserve the right to change prices at any time without prior notice. The price applicable to your order will be the price displayed at the time of checkout.</li>
+          <li>Product availability is subject to change. We do not guarantee stock availability at the time of ordering.</li>
+          <li>In the event of a pricing error on our website, we reserve the right to cancel any affected orders and refund any amounts paid.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section" id="t4">
+        <div class="legal-section-num">Section 04</div>
+        <h2 class="legal-section-title">Orders &amp; Payment</h2>
+        <p>When you place an order with UNS Creations:</p>
+        <ul>
+          <li>Your order constitutes an offer to purchase the selected products at the stated price.</li>
+          <li>We will send you an order confirmation email upon receipt of your order. This confirmation does not constitute acceptance of your order.</li>
+          <li>Acceptance of your order occurs when we dispatch the goods and send you a dispatch confirmation.</li>
+          <li>We reserve the right to refuse, limit, or cancel any order at our discretion, including in cases of suspected fraud, pricing errors, or unavailability.</li>
+          <li>Payment must be made in full at the time of ordering. We accept major credit and debit cards, UPI, net banking, and other methods available through our payment gateway.</li>
+          <li>All payment processing is handled by certified, secure third-party payment processors. UNS Creations does not store your full payment card details.</li>
+        </ul>
+        <div class="highlight-box">
+          <p>By placing an order, you authorise us to charge the payment method provided for the full amount including applicable taxes and shipping charges.</p>
+        </div>
+      </div>
+
+      <div class="legal-section" id="t5">
+        <div class="legal-section-num">Section 05</div>
+        <h2 class="legal-section-title">Shipping &amp; Delivery</h2>
+        <p>We ship across India. Delivery timelines and charges are as follows:</p>
+        <ul>
+          <li>Standard delivery: 5–7 business days from dispatch.</li>
+          <li>Express delivery: 2–3 business days where available (additional charge applies).</li>
+          <li>Delivery timelines are estimates and may vary due to factors beyond our control, including courier delays, public holidays, or adverse weather.</li>
+          <li>Shipping charges are calculated at checkout based on your delivery location and order value.</li>
+          <li>Risk of loss and title for products passes to you upon delivery to your specified address.</li>
+          <li>Please ensure your delivery address is accurate. We are not responsible for orders delayed or undelivered due to incorrect or incomplete addresses provided by you.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section" id="t6">
+        <div class="legal-section-num">Section 06</div>
+        <h2 class="legal-section-title">Returns, Exchanges &amp; Refunds</h2>
+        <p>We want you to love your purchase. Our return and exchange policy is designed to be fair and hassle-free:</p>
+        <ul>
+          <li>You may return or exchange eligible items within <strong>7 days</strong> of delivery.</li>
+          <li>Items must be unused, unworn, and in their original condition with all tags attached.</li>
+          <li>Sale items, innerwear, and custom-order products are not eligible for return or exchange unless they arrive damaged or defective.</li>
+          <li>To initiate a return or exchange, please contact us at <a href="mailto:hello@unscreations.com">hello@unscreations.com</a> with your order number and reason for return.</li>
+          <li>Approved refunds will be processed within 7–10 business days to your original payment method.</li>
+          <li>Reverse shipping charges may apply unless the item is defective or incorrectly shipped.</li>
+        </ul>
+        <p>If you receive a damaged, defective, or incorrect item, please contact us within <strong>48 hours</strong> of delivery with photographs. We will resolve such issues promptly at no additional cost to you.</p>
+      </div>
+
+      <div class="legal-section" id="t7">
+        <div class="legal-section-num">Section 07</div>
+        <h2 class="legal-section-title">Intellectual Property</h2>
+        <p>All content on our website — including but not limited to our logo, brand name, product images, descriptions, website design, graphics, text, and software — is the exclusive property of UNS Creations and is protected under applicable Indian and international intellectual property laws.</p>
+        <ul>
+          <li>You may not copy, reproduce, distribute, modify, or create derivative works of any content from our website without our prior written consent.</li>
+          <li>You may not use our trademarks, logos, or brand name in any manner that could cause confusion or imply endorsement without our written permission.</li>
+          <li>Personal, non-commercial use of our website for browsing and shopping is permitted.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section" id="t8">
+        <div class="legal-section-num">Section 08</div>
+        <h2 class="legal-section-title">User Conduct &amp; Prohibited Activities</h2>
+        <p>When using our website and services, you agree not to:</p>
+        <ul>
+          <li>Use our services for any unlawful, fraudulent, or harmful purpose.</li>
+          <li>Impersonate any person or entity, or misrepresent your affiliation with any person or entity.</li>
+          <li>Attempt to gain unauthorised access to any portion of our website, systems, or networks.</li>
+          <li>Engage in scraping, harvesting, or automated data collection from our website without our express written consent.</li>
+          <li>Transmit any viruses, malware, or other malicious code through our services.</li>
+          <li>Post, submit, or share any content that is defamatory, obscene, offensive, or infringes any third-party rights.</li>
+          <li>Resell, commercially exploit, or reverse-engineer any part of our services without authorisation.</li>
+        </ul>
+        <div class="warning-box">
+          <p>Violation of these conduct standards may result in immediate suspension of your account and access to our services, and may be reported to appropriate legal authorities.</p>
+        </div>
+      </div>
+
+      <div class="legal-section" id="t9">
+        <div class="legal-section-num">Section 09</div>
+        <h2 class="legal-section-title">Disclaimers</h2>
+        <p>Our website and services are provided on an "as is" and "as available" basis. To the fullest extent permitted by law, UNS Creations makes no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+        <p>We do not warrant that:</p>
+        <ul>
+          <li>Our website will be uninterrupted, timely, secure, or free from errors.</li>
+          <li>Any defects will be corrected.</li>
+          <li>Information on our website is complete, accurate, or current at all times.</li>
+        </ul>
+        <p>Product descriptions, sizing information, and styling advice are provided for guidance only. Individual results may vary based on body type, personal preferences, and other factors.</p>
+      </div>
+
+      <div class="legal-section" id="t10">
+        <div class="legal-section-num">Section 10</div>
+        <h2 class="legal-section-title">Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, UNS Creations, its directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services or products, including but not limited to:</p>
+        <ul>
+          <li>Loss of profits, revenue, data, or goodwill.</li>
+          <li>Costs of substitute goods or services.</li>
+          <li>Any claim arising from third-party products, links, or services.</li>
+        </ul>
+        <p>Our total liability to you for any claim arising out of or relating to your purchase shall not exceed the total amount you paid for the specific product giving rise to the claim.</p>
+        <p>Nothing in these Terms excludes or limits our liability for death or personal injury caused by our negligence, fraud, or any other liability that cannot be excluded or limited by Indian law.</p>
+      </div>
+
+      <div class="legal-section" id="t11">
+        <div class="legal-section-num">Section 11</div>
+        <h2 class="legal-section-title">Governing Law &amp; Dispute Resolution</h2>
+        <p>These Terms of Use shall be governed by and construed in accordance with the laws of India. Any dispute arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts located in India.</p>
+        <p>Before initiating any legal proceedings, we encourage you to contact us directly to resolve any disputes informally. We are committed to resolving concerns fairly and promptly. Please reach out to us at <a href="mailto:hello@unscreations.com">hello@unscreations.com</a>.</p>
+        <p>Consumer disputes may also be referred to appropriate consumer forums or dispute resolution mechanisms as provided under applicable Indian consumer protection laws.</p>
+      </div>
+
+      <div class="legal-section" id="t12">
+        <div class="legal-section-num">Section 12</div>
+        <h2 class="legal-section-title">Contact Us</h2>
+        <p>If you have any questions or concerns about these Terms of Use, please contact us:</p>
+        <div class="highlight-box">
+          <p><strong>UNS Creations — Legal &amp; Compliance Team</strong><br>
+          Email: <a href="mailto:hello@unscreations.com">hello@unscreations.com</a><br>
+          WhatsApp / Phone: +91 98765 43210<br>
+          Website: <a href="contact.html">Contact Us Page</a><br><br>
+          We aim to respond to all enquiries within 2 business days.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 UNS Creations. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

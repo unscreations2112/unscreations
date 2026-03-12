@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — UNS Creations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a18;
+      --cream: #f5f0e8;
+      --parchment: #ede7d9;
+      --gold: #b8965a;
+      --gold-light: #d4b07a;
+      --blush: #e8d5c4;
+      --white: #fdfaf6;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(253, 250, 246, 0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,150,90,0.18);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink);
+      text-decoration: none; padding-bottom: 3px; position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:width 0.35s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-links a.active { color: var(--gold); }
+    .nav-links a.active::after { width:100%; }
+
+    /* PAGE HEADER */
+    .page-header {
+      min-height: 52vh; background: var(--ink);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 160px 48px 80px; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(184,150,90,0.08) 0%, transparent 60%);
+    }
+    .page-header-label {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .page-header-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(40px, 6vw, 80px);
+      font-weight: 700; color: var(--cream); line-height: 1.05;
+    }
+    .page-header-title em { font-style: italic; color: var(--gold); }
+
+    /* CONTACT BODY */
+    .contact-body {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 0; min-height: 80vh;
+    }
+    .contact-info {
+      background: var(--parchment); padding: 80px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-info-label {
+      font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+    }
+    .contact-info-title {
+      font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 20px; color: var(--ink);
+    }
+    .contact-info-body {
+      font-size: 17px; font-weight: 300; line-height: 1.8;
+      color: rgba(26,26,24,0.65); margin-bottom: 52px;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 32px; }
+    .contact-detail { display: flex; gap: 20px; align-items: flex-start; }
+    .detail-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--ink); display: flex; align-items: center; justify-content: center;
+    }
+    .detail-icon svg { width:18px; height:18px; fill: var(--gold); }
+    .detail-label {
+      font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .detail-value { font-size: 17px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+    .detail-value a { color: var(--ink); text-decoration: none; transition: color 0.3s; }
+    .detail-value a:hover { color: var(--gold); }
+
+    .social-strip { display: flex; gap: 14px; margin-top: 48px; }
+    .social-btn {
+      font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--ink);
+      border: 1px solid rgba(26,26,24,0.25); padding: 10px 20px;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .social-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+    /* FORM */
+    .contact-form-wrap { background: var(--white); padding: 80px 64px; }
+    .form-title {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .form-sub { font-size: 16px; font-weight: 300; color: rgba(26,26,24,0.55); margin-bottom: 48px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+    .form-group label {
+      font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300;
+      color: var(--ink); background: var(--white);
+      border: none; border-bottom: 1.5px solid rgba(26,26,24,0.2);
+      padding: 12px 0; outline: none; width: 100%;
+      transition: border-color 0.3s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { min-height: 130px; resize: vertical; }
+    .form-group select { cursor: pointer; }
+    .form-group select option { font-family: sans-serif; }
+    .form-submit {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      background: var(--ink); color: var(--cream);
+      border: none; padding: 18px 52px; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--gold); transform: translateY(-2px); }
+    .form-note {
+      margin-top: 20px; font-size: 13px; font-weight: 300;
+      color: rgba(26,26,24,0.45); line-height: 1.6;
+    }
+    .form-note a { color: var(--gold); text-decoration: none; }
+
+    .form-success {
+      display: none; background: rgba(184,150,90,0.1);
+      border: 1px solid rgba(184,150,90,0.3);
+      padding: 28px; margin-top: 32px; text-align: center;
+    }
+    .form-success p {
+      font-family: 'Playfair Display', serif; font-size: 20px; color: var(--ink);
+    }
+
+    /* MAP STRIP */
+    .map-strip {
+      background: var(--ink); padding: 80px 48px;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+    }
+    .map-card {
+      background: rgba(255,255,255,0.03); padding: 48px 40px;
+      border: 1px solid rgba(184,150,90,0.1);
+      text-align: center;
+    }
+    .map-card-icon { font-size: 32px; margin-bottom: 16px; }
+    .map-card-title {
+      font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;
+      color: var(--cream); margin-bottom: 10px;
+    }
+    .map-card-body { font-size: 15px; font-weight: 300; color: rgba(245,240,232,0.5); line-height: 1.7; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--cream); padding: 60px 48px 36px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(184,150,90,0.12); padding-top: 28px; }
+    .footer-copy { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing:1.5px; color: rgba(245,240,232,0.3); }
+    .footer-legal { display: flex; gap: 28px; }
+    .footer-legal a { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing:1.5px; color: rgba(245,240,232,0.3); text-decoration:none; transition:color 0.3s; }
+    .footer-legal a:hover { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      .page-header { padding: 140px 24px 60px; }
+      .contact-body { grid-template-columns: 1fr; }
+      .contact-info, .contact-form-wrap { padding: 60px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .map-strip { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="uns_logo.png" alt="UNS Creations Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#collection">Collections</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-label">We're Here for You</div>
+    <h1 class="page-header-title">Let's <em>Connect</em></h1>
+  </div>
+
+  <div class="contact-body">
+    <!-- INFO COL -->
+    <div class="contact-info">
+      <div class="contact-info-label">Reach Out</div>
+      <h2 class="contact-info-title">We'd Love to Hear from You</h2>
+      <p class="contact-info-body">Whether you have a question about sizing, an order, or simply want to know more about our collections — our team is ready to help.</p>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <div class="detail-label">Email Us</div>
+            <div class="detail-value"><a href="mailto:hello@unscreations.com">hello@unscreations.com</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          </div>
+          <div>
+            <div class="detail-label">WhatsApp / Call</div>
+            <div class="detail-value"><a href="tel:+919876543210">+91 98765 43210</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          </div>
+          <div>
+            <div class="detail-label">Location</div>
+            <div class="detail-value">India · Serving Nationwide</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          </div>
+          <div>
+            <div class="detail-label">Business Hours</div>
+            <div class="detail-value">Mon – Sat: 10am – 7pm IST</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-strip">
+        <a href="#" class="social-btn">Instagram</a>
+        <a href="#" class="social-btn">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- FORM COL -->
+    <div class="contact-form-wrap">
+      <div class="form-title">Send Us a Message</div>
+      <div class="form-sub">We typically respond within 24 hours on business days.</div>
+
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="fname" placeholder="Priya" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Sharma" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="priya@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected>Select a topic...</option>
+            <option>Order Query</option>
+            <option>Sizing & Fit Help</option>
+            <option>Returns & Exchanges</option>
+            <option>Product Information</option>
+            <option>Wholesale / Bulk Order</option>
+            <option>Partnership Enquiry</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message *</label>
+          <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+        <div class="form-success" id="formSuccess">
+          <p>✦ &nbsp; Thank you! We'll be in touch very soon.</p>
+        </div>
+        <p class="form-note">
+          By submitting this form, you agree to our <a href="privacy.html">Privacy Policy</a>. Your data will only be used to respond to your enquiry and will never be shared with third parties.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- SERVICE CARDS -->
+  <div class="map-strip">
+    <div class="map-card">
+      <div class="map-card-icon">📦</div>
+      <div class="map-card-title">Order Support</div>
+      <p class="map-card-body">Track your orders, report issues, and get help with deliveries across all major Indian cities.</p>
+    </div>
+    <div class="map-card">
+      <div class="map-card-icon">✂️</div>
+      <div class="map-card-title">Styling Advice</div>
+      <p class="map-card-body">Our fashion consultants can help you choose the right pieces for any occasion or body type.</p>
+    </div>
+    <div class="map-card">
+      <div class="map-card-icon">🤝</div>
+      <div class="map-card-title">Wholesale Enquiries</div>
+      <p class="map-card-body">Interested in stocking UNS Creations? Reach out to discuss wholesale and partnership opportunities.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 UNS Creations. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('formSuccess').style.display = 'block';
+      e.target.reset();
+      setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 6000);
+    }
+  </script>
+</body>
+</html>
